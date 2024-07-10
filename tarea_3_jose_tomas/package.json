@@ -1,0 +1,17 @@
+{
+  "name": "juegoranciosolojs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "nodemon": "^3.1.4",
+    "prompt-sync": "^4.2.0"
+  }
+}
