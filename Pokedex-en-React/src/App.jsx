@@ -71,7 +71,7 @@ function App() {
     ]
     function getFromPKDX(number){
       if (Pokedex[number-1]){
-        actualCanEvo(Pokedex[number-1].hasEvolution)
+        actualCanEvo(Pokedex[number-1].hasEvolution) 
         actualName(Pokedex[number-1].name)
         actualType(Pokedex[number-1].type1)
         actualSecond(Pokedex[number-1].type2)
