@@ -2,15 +2,23 @@ import { useState } from 'react'
 import './App.css'
 import LoadingScreen from './components/LoadingScreen.jsx'
 import useSound from 'use-sound'
+import { fetchMoves } from './utils/fetchMoves.js'
 import TitleNButtons from './components/Title&Buttons.jsx';
 import { fetchPokeAPI } from './utils/fetchPokeAPI.js';
 import ChoosenPokemons from './components/ChoosenPokemons.jsx'
+import MoveList from './components/MoveList.jsx'
 // formula de HP = floor(0.01 x (2 x Base + IV + floor(0.25 x EV)) x Level) + Level + 10
 function App() {
   const {pokemons:Pokemons,loaded} = fetchPokeAPI();
   const [Pokemon1, setFirst] = useState();
   const [Pokemon2, setSecond] = useState();
-  function selectPokemon(pokemon){
+  const [PKSoundURL, setSound] = useState();
+  const [pokemonSound] = useSound(PKSoundURL);
+  const [gameOn, setGameState] = useState(false);
+  function selectPokemon(pokemon)
+  {
+    setSound(pokemon.battleCry);
+    console.log(PKSoundURL)
     if (Pokemon1 && !Pokemon2){
       setSecond(pokemon)
     } else if (Pokemon2 && !Pokemon1){
@@ -21,9 +29,19 @@ function App() {
     } else {
       setFirst(pokemon)
     }
+    playcry()
+  }
+  function playcry(){
+    pokemonSound()
+  }
+  const handleButtonPokemon = (pokemon) => () => {
+    selectPokemon(pokemon);
+  };
+  const handleButtonStart = () => () => {
+    setGameState(true);
   }
   const pokeList = Pokemons?.map(pokemon => 
-    <button className='pkSelBox'onClick={selectPokemon(pokemon)}>
+    <button key={pokemon.name} className='pkSelBox' onClick={handleButtonPokemon(pokemon)}>
       <img src={pokemon.image}/>
       <p>{pokemon.name}</p>
     </button>
@@ -31,8 +49,13 @@ function App() {
   return (
     <>
       <LoadingScreen loaded={loaded}/>
-      {loaded && <TitleNButtons pokeList={pokeList} />}
-      <ChoosenPokemons Pokemon1={Pokemon1} Pokemon2={Pokemon2} />
+      {loaded && !gameOn && <TitleNButtons pokeList={pokeList} />}
+      <ChoosenPokemons Pokemon1={Pokemon1} Pokemon2={Pokemon2} isPlaying={gameOn} />
+      {Pokemon1 && Pokemon2 &&  <button className="StartGameButton" onClick={handleButtonStart()}>
+        <p>Start game</p>
+      </button>}
+      <MoveList pokemon={Pokemon1}/>
+      <MoveList pokemon={Pokemon2}/>
     </>
   )
 }

@@ -19,6 +19,7 @@ export const fetchPokeAPI = () => {
         type2: pokemonFromApi.types?.[1]?.type?.name || false,
         hasEvolution:  false,
         image: pokemonFromApi.sprites.front_default,
+        backImage: pokemonFromApi.sprites.back_default,
         battleCry: pokemonFromApi.cries.legacy,
         stats: []
       };

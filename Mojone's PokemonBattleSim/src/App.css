@@ -17,6 +17,9 @@
     top: -20px;
     transition: all 0.5s;
 }
+.pkSelBox p::first-letter {
+    text-transform: uppercase
+  }
 .pkSelBox img{
     top: -25px;
     position: relative;
@@ -73,4 +76,49 @@ h1{
 }
 .MenuTitle{
     text-align: center;
+}
+.pokemon1{
+    position:relative;
+    height: 200px;
+    width: 200px;
+    margin: 10px;
+    left: 380px;
+    top: 120px;
+    transition: all 0.5s;
+}
+.pokemon1 img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;  
+    top:10px;
+}
+.pokemon1 p{
+    text-align: center;
+    color: white;
+}
+.pokemon2{
+    position:relative;
+    height: 200px;
+    width: 200px;
+    margin: 10px;
+    left: 720px;
+    top: -200px;
+    transition: all 0.5s;
+}
+.pokemon2 img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;  
+    top:10px;
+}
+.pokemon2 p{
+    text-align: center;
+    color: white;
+}
+.StartGameButton{
+    position: relative;
+    top: -150px;
+    left: 630px;
 }
