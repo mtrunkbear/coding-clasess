@@ -15,6 +15,11 @@ function App() {
   const [PKSoundURL, setSound] = useState();
   const [pokemonSound] = useSound(PKSoundURL);
   const [gameOn, setGameState] = useState(false);
+  const [Moves1, setFirstMoves] = useState();
+  const [Moves2, setSecondMoves] = useState();
+  const [LoadedMoves1, gotMoves1] = useState(false);
+  const [LoadedMoves2, gotMoves2] = useState(false);
+
   function selectPokemon(pokemon)
   {
     setSound(pokemon.battleCry);
@@ -46,16 +51,24 @@ function App() {
       <p>{pokemon.name}</p>
     </button>
     );
+  const getMoves1 = (loadedmoves, movesrecieved) => {
+    setFirstMoves(movesrecieved)
+    gotMoves1(loadedmoves)
+  }
+  const getMoves2 = (loadedmoves, movesrecieved) => {
+    setSecondMoves(movesrecieved)
+    gotMoves2(loadedmoves)
+  }
   return (
     <>
       <LoadingScreen loaded={loaded}/>
-      {loaded && !gameOn && <TitleNButtons pokeList={pokeList} />}
+      {loaded && !gameOn &&<TitleNButtons pokeList={pokeList} />}
       <ChoosenPokemons Pokemon1={Pokemon1} Pokemon2={Pokemon2} isPlaying={gameOn} />
       {Pokemon1 && Pokemon2 &&  <button className="StartGameButton" onClick={handleButtonStart()}>
         <p>Start game</p>
       </button>}
-      <MoveList pokemon={Pokemon1}/>
-      <MoveList pokemon={Pokemon2}/>
+      {gameOn && <MoveList pokemon={Pokemon1} sendToParent={getMoves1}/>}
+      {gameOn && <MoveList pokemon={Pokemon2} sendToParent={getMoves2}/>}
     </>
   )
 }

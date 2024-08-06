@@ -8,6 +8,7 @@ export const fetchPokeAPI = () => {
     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0");
     const jsonResponse = await response.json();
     const { results } = jsonResponse;
+    console.log(results)
     //GET obteniendo data de cada pokemon
     const pokemons = [];
     results.forEach(async ({ url }) => {

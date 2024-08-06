@@ -8,11 +8,13 @@ export function fetchMoves(pokename){
     const response = await fetch("https://pokeapi.co/api/v2/pokemon/"+pokename);
     const jsonResponse = await response.json();
     const { moves } = jsonResponse;
+    console.log(moves)
     //GET obteniendo data de cada pokemon
     const listmoves = [];
     let a = 0;
     moves.forEach(async ({ url }) => {
       a++;
+      console.log(url)
       const response = await fetch(url);
       const moveFromApi = await response.json();
       const move = {
@@ -46,6 +48,7 @@ export function fetchMoves(pokename){
         }
         move.aditionalFX.push(getStatChanges)
       }
+      console.log(move)
       listmoves.push(move)
       if(listmoves.length >= pokename.moves.length)
       {
