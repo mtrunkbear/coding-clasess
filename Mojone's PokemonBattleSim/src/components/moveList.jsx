@@ -1,5 +1,5 @@
 import { fetchMoves } from '../utils/fetchMoves'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 function MoveList({pokemon, sendToParent}){
     const [moves, changeMoves] = useState([null,null,null,null]);
     const {moveslist:Moves, loadedMoves} = fetchMoves(pokemon.name);
@@ -12,7 +12,6 @@ function MoveList({pokemon, sendToParent}){
           value={''}
           onChange={(e) => handleSelectChange(index, e.target.value)}
         >
-          <option value="" disabled>Select a move</option>
           {getAvailableMoves()?.map(move => 
             <option key={move.id} className="moveSelect" value={move}>
                 <p>{move.name}  Power: {move.power}  ACC: {move.acc}</p>
@@ -27,8 +26,11 @@ function MoveList({pokemon, sendToParent}){
         const newSelectedOptions = [...moves];
         newSelectedOptions[index] = value;
         changeMoves(newSelectedOptions);
-        sendToParent(loadedMoves, moves)
     };
+    useEffect(() => {
+        sendToParent(loadedMoves, moves) 
+        console.log(loadedMoves,moves)}
+    , [loadedMoves,moves])
     return(
         <>
             {loadedMoves &&
